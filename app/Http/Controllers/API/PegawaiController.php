@@ -14,6 +14,7 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $pgw = Pegawai::all();
@@ -29,15 +30,16 @@ class PegawaiController extends Controller
     {
 
         $pgw = null;
-        if (strpos($email,'@gmail.com') === false) {
-            $email = strpos($email,'@bpkh.go.id') === false ? $email.'@bpkh.go.id': $email;
-            $pgw = Pegawai::where('username',$email)->first();
-            if ($pgw === null) {
-                $email = explode('@',$email)[0];
-                $pgw = Pegawai::where('username', "$email@gmail.com")->first();
+        //check jika username yang dimasukan
+        if (strpos($email,'@gmail.com') === false) { //check jika bukan gmail
+            $email = strpos($email,'@bpkh.go.id') === false ? $email.'@bpkh.go.id': $email; //memastikan dengan email @bpkh.go.id
+            $pgw = Pegawai::where('username',$email)->first(); //mendapatkan data pegawai dari user@bpkh.go.id
+            if ($pgw === null) { //Jika gagal / kosong
+                $email = explode('@',$email)[0]; //mengambil nama user
+                $pgw = Pegawai::where('username', "$email@gmail.com")->first(); //mencoba dengan gmail
             }
         }else{
-            $pgw = Pegawai::where('username',$email)->first();
+            $pgw = Pegawai::where('username',$email)->first(); //mencoba dengan email yang lain
         }
         
         if ($pgw){
