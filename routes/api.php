@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('login',[PegawaiController::class,'login']);
 Route::get('pegawai',[PegawaiController::class,'index']);
 Route::get('pegawai/{email}',[PegawaiController::class,'byEmail']);
 
